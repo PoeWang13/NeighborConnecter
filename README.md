@@ -1,8 +1,10 @@
 # NeighborConnecter
-Show it and it will be connected to its neighbor. İstediğiniz gibi kullanabilirsiniz. Herhangi bir tavsiye, uyarı veya bug için 13yedecim13@gmail.com
+Choose a tile. Keeping your mouse pressed, hover over similar and neighbor tiles. When you release your mouse, if 3 or more tiles are selected, they will all be destroyed.
+İstediğiniz gibi kullanabilirsiniz. Herhangi bir tavsiye, uyarı veya bug için 13yedecim13@gmail.com
 
 # Game_Manager
 Oyunu başlatan ve boardın büyüklüğüne karar veren scriptir.
+
 boardSize : Boardın büyüklüğünü belirlediğimiz değişkendir.
 
 # Canvas_Manager
@@ -12,6 +14,9 @@ textScore : Puanlarımızın gösterildiği text componenti değişkenidir.
 
 # Board_Manager
 Oyun sağasını oluşturan, tileları seçen, denetleyen ve düzgün seçilmişler ise onları yok edip tekrar oluşturan scripttir.
+
+shrinkingBoard : Board oluşturulup tilelar seçilip yok edildikten sonra board küçülsün ve sütünda tile kalmadığı taktirde sola doğru kaysın mı 
+yoksa yok olan tilaların üstündeki tilelar aşağı insin ve kalan boşluğa yeni tilelar oluşturulup yerleştirilsinmi durumunu belirlemek için kullanılır.
 
 boardTilePrefab : Boardı oluşturmak için kullandığımız tile objesinin prefabıdır.
 
