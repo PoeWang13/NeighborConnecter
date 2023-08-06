@@ -2,10 +2,10 @@
 
 public class Tile : MonoBehaviour
 {
-	[SerializeField] private Vector2Int myCoordinate;
-	[SerializeField] private Item myItem;
-	[SerializeField] private SpriteRenderer mySpriteIcon;
-	[SerializeField] private Tile[] myNeighbors = new Tile[4];
+	private Vector2Int myCoordinate;
+	private Item myItem;
+	private SpriteRenderer mySpriteIcon;
+	private Tile[] myNeighbors = new Tile[4];
 
 	public Item MyItem { get => myItem; }
 	public Vector2Int MyCoordinate { get => myCoordinate; }
