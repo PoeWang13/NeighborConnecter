@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public enum TileMouseType
@@ -23,6 +24,8 @@ public class Board_Manager : MonoBehaviour
     private int width;
 	private int height;
 	private int totalSwapTiles = 0;
+	private float effectedWaitingTime = 2;
+	private float effectedScale = 1.1f;
 	private bool waitForChoosing;
 	private Tile choosedTile;
 	private List<Tile> choosedTiles = new List<Tile>();
@@ -105,6 +108,7 @@ public class Board_Manager : MonoBehaviour
 			choosedTiles.Clear();
 			choosedTile = tile;
 			choosedTiles.Add(choosedTile);
+			EffectedTile();
 		}
 		else if (tileMouseType == TileMouseType.Enter)
 		{
@@ -161,11 +165,11 @@ public class Board_Manager : MonoBehaviour
 		waitForChoosing = true;
 		if (choosedTiles.Count > 2)
 		{
-			for (int h = 0; h < choosedTiles.Count; h++)
+			for (int h = choosedTiles.Count - 1; h >= 0; h--)
 			{
 				scoreAdd += choosedTiles[h].MyItem.point;
 				myTile[choosedTiles[h].MyCoordinate.x, choosedTiles[h].MyCoordinate.y] = null;
-				Destroy(choosedTiles[h].gameObject);
+				choosedTiles[h].gameObject.SetActive(false);
 			}
 			Canvas_Manager.Instance.SetScore();
 			GoDownTile();
@@ -175,7 +179,39 @@ public class Board_Manager : MonoBehaviour
 			ClearChoosedTile();
 		}
 	}
-
+	/// <summary>
+	/// To understand the selected tiles, give effects to these tiles. 
+	/// </summary>
+	private void EffectedTile()
+    {
+		StartCoroutine(EffectedTiles());
+    }
+	IEnumerator EffectedTiles()
+	{
+		while (choosedTiles.Count != 0)
+		{
+			for (int e = 0; e < choosedTiles.Count; e++)
+			{
+				if (choosedTiles[e] == null)
+				{
+					continue;
+				}
+				Tile tile = choosedTiles[e];
+				tile.transform.DOScale(Vector3.one * effectedScale, DoTweenDuration).OnComplete(() =>
+				{
+					if (tile.gameObject.activeSelf)
+					{
+						tile.transform.DOScale(Vector3.one, DoTweenDuration);
+					}
+                    else
+                    {
+						Destroy(tile.gameObject);
+                    }
+				});
+			}
+			yield return new WaitForSeconds(DoTweenDuration * effectedWaitingTime);
+		}
+	}
 	/// <summary>
 	/// Slide down the tiles on top of the destroyed tiles. 
 	/// </summary>
