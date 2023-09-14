@@ -15,10 +15,13 @@ public class Board_Manager : MonoBehaviour
 	public static Board_Manager Instance { get => instance; }
 
 	private const float DoTweenDuration = 0.25f;
+	[SerializeField] private int scoreLimit;
+	[SerializeField] private int stepLimit;
 	[SerializeField] private Tile boardTilePrefab;
     [SerializeField] private Transform boardTileParent;
     [SerializeField] private List<Item> boardItemList = new List<Item>();
 
+	private int stepLimitMax;
 	private int score;
 	private int scoreAdd = 0;
     private int width;
@@ -27,6 +30,7 @@ public class Board_Manager : MonoBehaviour
 	private float effectedWaitingTime = 2;
 	private float effectedScale = 1.1f;
 	private bool waitForChoosing;
+	private bool gameStart;
 	private Tile choosedTile;
 	private List<Tile> choosedTiles = new List<Tile>();
 
@@ -37,10 +41,13 @@ public class Board_Manager : MonoBehaviour
 	public int Height { get => height; }
 	public int ScoreAdd { get => scoreAdd; }
 	public int Score { get => score; set => score = value; }
+	public int Step { get => stepLimitMax; }
 
 	[ContextMenu("Set Board")]
 	private void SetBoard()
 	{
+		Canvas_Manager.Instance.SetActiveLevelFinishPanel(false);
+
         for (int e = boardTileParent.childCount - 1; e >= 0 ; e--)
         {
 			Destroy(boardTileParent.GetChild(e).gameObject);
@@ -64,11 +71,23 @@ public class Board_Manager : MonoBehaviour
     /// </summary>
     public void SetBoard(Vector2Int boardSize)
 	{
+		if (stepLimit != 0)
+		{
+            if (scoreLimit == 0)
+            {
+				Debug.LogError("Step Limit ayarlanmış ama Score Limit ayarlanmamış");
+				return;
+            }
+		}
+
 		width = boardSize.x;
 		height = boardSize.y;
 		myTile = new Tile[width, height];
 		choosedTiles.Clear();
 		ClearSwapTilesList();
+		score = 0;
+		stepLimitMax = 0;
+		gameStart = true;
 
 		for (int h = 0; h < Width; h++)
 		{
@@ -100,6 +119,10 @@ public class Board_Manager : MonoBehaviour
 	public void ChooseTile(Tile tile, TileMouseType tileMouseType)
 	{
 		if (waitForChoosing)
+		{
+			return;
+		}
+		if (!gameStart)
 		{
 			return;
 		}
@@ -172,6 +195,8 @@ public class Board_Manager : MonoBehaviour
 				choosedTiles[h].gameObject.SetActive(false);
 			}
 			Canvas_Manager.Instance.SetScore();
+
+			stepLimitMax++; ;
 			GoDownTile();
 		}
 		else
@@ -271,11 +296,61 @@ public class Board_Manager : MonoBehaviour
 							{
 								LearnNeighbors();
 								ClearChoosedTile();
+								CheckGameFinish();
 							}
 						});
 					}
 				}
 			});
+	}
+	private void LearnNeighbors()
+	{
+		for (int h = 0; h < Width; h++)
+		{
+			for (int e = 0; e < Height; e++)
+			{
+				myTile[h, e].SetMyNeighbors();
+			}
+		}
+	}
+	private void ClearChoosedTile()
+	{
+		waitForChoosing = false;
+		choosedTile = null;
+		choosedTiles.Clear();
+	}
+	private void CheckGameFinish()
+	{
+		if (stepLimit == 0) // Sadece belli bir score geçilmesi isteniyor
+		{
+			CheckScoreLimit();
+		}
+		else // Belli bir step içinde belli bir score geçilmesi isteniyor.
+		{
+			if (stepLimitMax >= stepLimit)
+			{
+				if (!CheckScoreLimit())
+				{
+					gameStart = false;
+					Canvas_Manager.Instance.LevelLost();
+				}
+			}
+            else
+			{
+				CheckScoreLimit();
+			}
+		}
+	}
+	private bool CheckScoreLimit()
+	{
+		if (score >= scoreLimit)
+		{
+			gameStart = false;
+			Canvas_Manager.Instance.LevelWin();
+			return true;
+		}
+		return false;
+
 	}
 	private Tile SendAnotherCoordinateToTile(int oldX, int oldY, Vector2Int newCoordinate)
 	{
@@ -287,22 +362,6 @@ public class Board_Manager : MonoBehaviour
 		tile.transform.DOMove(newPos, DoTweenDuration);
 
 		return tile;
-	}
-	private void ClearChoosedTile()
-	{
-		waitForChoosing = false;
-		choosedTile = null;
-		choosedTiles.Clear();
-	}
-	private void LearnNeighbors()
-	{
-		for (int h = 0; h < Width; h++)
-		{
-			for (int e = 0; e < Height; e++)
-			{
-				myTile[h, e].SetMyNeighbors();
-			}
-		}
 	}
 	public void SetScore()
     {
