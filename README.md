@@ -1,9 +1,11 @@
 
 # Bilgilendirme Videoları
 Level kazanmak için ne kadar puan gerekli ve en fazla kaç step yapabilir? Bu kuralların nereden ayarlandığını gösteren kısa video.
+
 https://youtu.be/EQzpiQap57g
 
 Oyun boardı nasıl düzenlenir, boyutları nasıl ayarlanır, hangi itemler gösterilir? Bunlarla ilgili kısa video.
+
 https://youtu.be/f-LHBiB7TNM
 
 # NeighborConnecter
