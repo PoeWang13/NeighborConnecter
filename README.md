@@ -1,10 +1,10 @@
 
-# Bilgilendirme Videoları
-Oyun boardı nasıl düzenlenir, boyutları nasıl ayarlanır, hangi itemler gösterilir? Bunlarla ilgili kısa video.
+# Informational Videos
+How to organize the game board, how to adjust its dimensions, what items are displayed? Short video about these.
 
 https://youtu.be/f-LHBiB7TNM
 
-Level kazanmak için ne kadar puan gerekli ve en fazla kaç step yapabilir? Bu kuralların nereden ayarlandığını gösteren kısa video.
+How many points are required to gain a level and how many steps can be done at most? Short video showing where these rules are set.
 
 https://youtu.be/EQzpiQap57g
 
