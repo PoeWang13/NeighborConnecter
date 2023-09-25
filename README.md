@@ -1,12 +1,12 @@
 
 # Bilgilendirme Videoları
-Level kazanmak için ne kadar puan gerekli ve en fazla kaç step yapabilir? Bu kuralların nereden ayarlandığını gösteren kısa video.
-
-https://youtu.be/EQzpiQap57g
-
 Oyun boardı nasıl düzenlenir, boyutları nasıl ayarlanır, hangi itemler gösterilir? Bunlarla ilgili kısa video.
 
 https://youtu.be/f-LHBiB7TNM
+
+Level kazanmak için ne kadar puan gerekli ve en fazla kaç step yapabilir? Bu kuralların nereden ayarlandığını gösteren kısa video.
+
+https://youtu.be/EQzpiQap57g
 
 # NeighborConnecter
 Choose a tile. Keeping your mouse pressed, hover over similar and neighbor tiles. When you release your mouse, if 3 or more tiles are selected, they will all be destroyed.
