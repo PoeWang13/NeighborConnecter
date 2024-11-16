@@ -1,3 +1,13 @@
+
+# Informational Videos
+How to organize the game board, how to adjust its dimensions, what items are displayed? Short video about these.
+
+https://youtu.be/f-LHBiB7TNM
+
+How many points are required to gain a level and how many steps can be done at most? Short video showing where these rules are set.
+
+https://youtu.be/EQzpiQap57g
+
 # NeighborConnecter
 Choose a tile. Keeping your mouse pressed, hover over similar and neighbor tiles. When you release your mouse, if 3 or more tiles are selected, they will all be destroyed.
 İstediğiniz gibi kullanabilirsiniz. Herhangi bir tavsiye, uyarı veya bug için 13yedecim13@gmail.com
